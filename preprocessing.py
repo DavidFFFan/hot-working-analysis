@@ -17,7 +17,7 @@ def getTime(startTime: str, num: int) -> str:
     startTime1 = datetime.datetime.strptime(startTime, r"%Y/%m/%d %H:%M:%S")
     time = startTime1 + datetime.timedelta(minutes=num)
 
-    return time
+    return time.strftime(r"%Y/%m/%d %H:%M:%S")
 
 def interpolation(data: List[int]):
     ''' 窗口为3的平均插值函数'''
