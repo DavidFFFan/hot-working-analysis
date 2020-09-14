@@ -87,7 +87,7 @@ def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
     print((np.argmin(minDistance)))
     print(np.argmax(maxFrontdistance))
     print(np.argmax(maxBackdistance))
-    
+    return int(np.argmin(distance))
     # print("minDistance = ", minDistance)
     # print("maxFrontdistance", maxFrontdistance)
     # print("maxBackdistance", maxBackdistance)
