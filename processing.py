@@ -83,10 +83,12 @@ def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
             preSumEdistance[i - front if i - front >= 0 else 0]
         maxBackdistance[i] = preSumEdistance[i+stdTime+back if i +
                                              stdTime+back <= size else size] - preSumEdistance[i+stdTime]
-    distance = minDistance - 0.01*(maxFrontdistance + maxBackdistance)
+    distance = minDistance - 0.1*(maxFrontdistance * maxBackdistance)
     print((np.argmin(minDistance)))
     print(np.argmax(maxFrontdistance))
     print(np.argmax(maxBackdistance))
+    minpos = int(np.argmin(distance))
+    print("最小距离时前缀和为",maxFrontdistance[minpos], " ，后缀和为",maxBackdistance[minpos],"匹配度距离为", minDistance[minpos])
     return int(np.argmin(distance))
     # print("minDistance = ", minDistance)
     # print("maxFrontdistance", maxFrontdistance)
