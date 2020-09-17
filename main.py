@@ -12,8 +12,11 @@ if __name__ == '__main__':
 
     data = pp.load_csv_data(path)
     
+    points = findCriticalPoints(data)
+    print(points)
     # 打印实际数据曲线
-    plt.plot(range(len(data)), data, 'bo:', label='current_tem', linewidth=1)
+    plt.plot(range(len(data)), data, label='current_tem', linewidth=1)
+    plt.scatter(points[0], points[1], marker='*',color='red')
     
     # minDistance, minPos = minEdistance(tdata = data, stdTime= time, stdTemp=temperature)
     # print("minDistance", minDistance, "minPos", minPos)

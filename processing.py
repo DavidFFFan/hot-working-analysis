@@ -94,5 +94,20 @@ def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
     print(np.argmax(maxFrontdistance))
     print(np.argmax(maxBackdistance))
     minpos = int(np.argmin(distance))
+    print("minpos = ",minpos)
     print("最小距离时前缀和为",maxFrontdistance[minpos], " ，后缀和为",maxBackdistance[minpos],"匹配度距离为", minDistance[minpos])
     return int(np.argmin(distance))
+
+def findCriticalPoints(data):
+    point = [[],[]]
+    THRESHOLD = 4
+    for i in range(1, len(data) - 1):
+        t = abs(data[i+1] - 2*data[i] + data[i-1])
+        if t >= THRESHOLD:
+            point[0].append(i)
+            point[1].append(data[i])
+    return point
+
+    
+        
+    
