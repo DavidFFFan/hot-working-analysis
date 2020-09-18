@@ -26,6 +26,7 @@ def minEdistance(tdata: List[int], stdTime: int, stdTemp: int) -> (float, int):
     return minDistance**0.5/stdTime, minPos
     # plt.show()
 
+
 '''
 def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
 
@@ -62,6 +63,7 @@ def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
     print("maxBackdistance", maxBackdistance)
 '''
 
+
 def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
     size, minPos = len(tdata), -1
     front = back = 5
@@ -94,12 +96,14 @@ def minmaxEdistance(tdata: List[int], stdTime: int, stdTemp: int):
     print(np.argmax(maxFrontdistance))
     print(np.argmax(maxBackdistance))
     minpos = int(np.argmin(distance))
-    print("minpos = ",minpos)
-    print("最小距离时前缀和为",maxFrontdistance[minpos], " ，后缀和为",maxBackdistance[minpos],"匹配度距离为", minDistance[minpos])
+    print("minpos = ", minpos)
+    print("最小距离时前缀和为", maxFrontdistance[minpos], " ，后缀和为",
+          maxBackdistance[minpos], "匹配度距离为", minDistance[minpos])
     return int(np.argmin(distance))
 
+
 def findCriticalPoints(data):
-    point = [[],[]]
+    point = [[], []]
     THRESHOLD = 4
     for i in range(1, len(data) - 1):
         t = abs(data[i+1] - 2*data[i] + data[i-1])
@@ -108,6 +112,25 @@ def findCriticalPoints(data):
             point[1].append(data[i])
     return point
 
-    
-        
-    
+
+def pieceswiseLinerFitting(data, xlabels):
+    '''
+    输入：总体数据， 关键点的横坐标
+    输出：分段的线性拟合参数，包括斜率k,截距b，开始位置s,结束位置e
+    '''
+    parameters = []
+    last, now = 0, None
+    # 从起点到最后一个关键点
+    for xlabel in xlabels:
+        now = xlabel
+        # 拟合区间左闭右闭[last, now]
+        k, b = np.polyfit(range(last, now + 1), data[last:now + 1], 1)
+        parameters.append((k, b, last, now))
+        last = now
+    # 最后一个关键点到数据结束
+    now = len(data) - 1
+    k, b = np.polyfit(range(last, now + 1), data[last:now + 1], 1)
+    parameters.append((k, b, last, now))
+
+    return parameters
+
