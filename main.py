@@ -20,6 +20,7 @@ if __name__ == '__main__':
 
     # 画图
     drawAll(data, points, parameters)
+    plt.legend()
     plt.show()
 
     # minDistance, minPos = minEdistance(tdata = data, stdTime= time, stdTemp=temperature)

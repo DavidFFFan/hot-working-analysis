@@ -7,6 +7,8 @@ def drawAll(data, points, parameters):
     输出：显示数据，关键点，线性分段
     功能：绘制数据，关键点以及线性分段图形
     '''
+    plt.xlabel('time')
+    plt.ylabel('temperature')
     drawData(data)
     drawCriticalPoints(points)
     drawLinerFitting(parameters)
@@ -21,6 +23,11 @@ def drawCriticalPoints(points):
 
 
 def drawLinerFitting(parameters):
+    falg = True
     for k, b, s, e in parameters:
         x = range(s, e + 1)
-        plt.plot(x, k * x + b, label='fitting', linewidth=1, color='red')
+        if falg:
+            plt.plot(x, k * x + b, linewidth=1, label='fitting', color='red')
+            falg = False
+        else:
+            plt.plot(x, k * x + b, linewidth=1, color='red')
