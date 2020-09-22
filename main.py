@@ -4,8 +4,10 @@ from processing import *
 import matplotlib.pyplot as plt
 from draw import *
 
+def func(x):
+    return (30*abs(x[3] - x[2] - time)/time+ abs(x[0]*(x[2]+x[3])/2+x[1]-temperature) + abs(x[0]))
 if __name__ == '__main__':
-    path = r'./data/测试数据1天.csv'
+    path = r'data\测试数据11_3-11_19.csv'
     # 标准工艺的时间，以及温度
     time, temperature = 30, 815
 
@@ -18,8 +20,13 @@ if __name__ == '__main__':
     # 分段线性拟合
     parameters = pieceswiseLinerFitting(data, points[0])
 
+    t = sorted(parameters, key=func)
     # 画图
-    drawAll(data, points, parameters)
+    drawAll(data, points, t[:8])
+
+    print("\n\n\n\n")
+    for i in range(len(t)):
+        print(t[i],func(t[i]))
     plt.legend()
     plt.show()
 
