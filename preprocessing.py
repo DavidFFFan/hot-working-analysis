@@ -17,7 +17,7 @@ def getTime(num: int, startTime) -> str:
     return time
 
 
-def interpolation(data: List[int]):
+def avgInterpolation(data: List[int]):
     ''' 窗口为3的平均插值函数'''
     size = len(data)
     for i in range(size):
@@ -28,13 +28,21 @@ def interpolation(data: List[int]):
     return data
 
 
+def leftInterpolation(data: List[int]):
+    size = len(data)
+    for i in range(1, size):
+        if data[i] == 0:
+            data[i] = data[i-1]
+    return data
+
+
 def load_csv_data(path: str) -> List[int]:
     corpus = pd.read_csv(
         path, usecols=["NOW_TIME", "CONTROLTEMP1_CURRENT_T"])
 
     # 转为list
     corpus = corpus.values.tolist()
-    
+
     start, end = corpus[0][0], corpus[-1][0]
     global startT, endT
     startT = datetime.datetime.strptime(start, r"%Y/%m/%d %H:%M:%S")
@@ -52,6 +60,7 @@ def load_csv_data(path: str) -> List[int]:
         tdata[minNums(startT, t)] = c[1]
 
     # 插值，去掉0
-    interpolation(tdata)
+    # avgInterpolation(tdata)
+    leftInterpolation(tdata)
 
     return tdata
