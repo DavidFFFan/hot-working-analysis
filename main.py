@@ -3,16 +3,18 @@ import preprocessing as pp
 from processing import *
 import matplotlib.pyplot as plt
 from draw import *
+from generate import combine
 
 def func(x):
     return (30*abs(x[3] - x[2] - time)/time+ abs(x[0]*(x[2]+x[3])/2+x[1]-temperature) + abs(x[0]))
 if __name__ == '__main__':
-    path = r'data\测试数据11_3-11_19.csv'
+    pathIn = r'data\origin\测试数据11_3-11_19.csv'
+    pathOut = r'data\label\dataset11_3-11_19.csv'
     # 标准工艺的时间，以及温度
     time, temperature = 30, 815
 
     # 读取数据，数据预处理
-    data = pp.load_csv_data(path)
+    data = pp.load_csv_data(pathIn)
 
     # 寻找关键点
     points = findCriticalPoints(data)
@@ -24,9 +26,7 @@ if __name__ == '__main__':
     # 画图
     drawAll(data, points, t[:8])
 
-    print("\n\n\n\n")
-    for i in range(len(t)):
-        print(t[i],func(t[i]))
+    # combine(pathOut,t, pp.startT, time, temperature, 8)
     plt.legend()
     plt.show()
 
