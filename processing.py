@@ -1,6 +1,7 @@
 import numpy as np
 from typing import List
-
+from sklearn import svm
+import joblib
 
 def minEdistance(tdata: List[int], stdTime: int, stdTemp: int) -> (float, int):
     size, minDistance, minPos = len(tdata), float('inf'), -1
@@ -134,3 +135,18 @@ def pieceswiseLinerFitting(data, xlabels):
 
     return parameters
 
+def svmPredict(parameters, stdTime, stdTempure):
+    '''
+    使用SVM模型进行分类
+    模型参数：abs(时间差，均值差，斜率)
+    结果：1表示是，0不是
+    '''
+    # 加载SVM模型
+    clf = joblib.load('model_svm.joblib')
+    ans = []
+    # X：abs(时间差，均值差，斜率)
+    for (k, b, last, now) in parameters:
+        if clf.predict([[abs((now-last) - stdTime), abs(k*(last+now)/2+b-stdTempure), abs(k)]])==1:
+            # print('last = ',last,', now =',now)
+            ans.append((k, b, last, now))
+    return ans
