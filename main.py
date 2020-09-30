@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from draw import *
 from generate import combine
 
-def func(x):
-    return (30*abs(x[3] - x[2] - time)/time+ abs(x[0]*(x[2]+x[3])/2+x[1]-temperature) + abs(x[0]))
+# def func(x):
+#     return (30*abs(x[3] - x[2] - time)/time+ abs(x[0]*(x[2]+x[3])/2+x[1]-temperature) + abs(x[0]))
 if __name__ == '__main__':
     pathIn = r'data\origin\测试数据11_3-11_19.csv'
     pathOut = r'data\label\dataset11_3-11_19.csv'
@@ -22,10 +22,13 @@ if __name__ == '__main__':
     # 分段线性拟合
     parameters = pieceswiseLinerFitting(data, points[0])
 
-    t = sorted(parameters, key=func)
-    # 画图
-    drawAll(data, points, t[:8])
+    # t = sorted(parameters, key=func)
+    # SVM预测
+    t = svmPredict(parameters, time, temperature)
 
+    # 画图
+    drawAll(data, points, t)
+    
     # combine(pathOut,t, pp.startT, time, temperature, 8)
     plt.legend()
     plt.show()
