@@ -2,6 +2,7 @@ import numpy as np
 from typing import List
 from sklearn import svm
 import joblib
+import math
 
 def minEdistance(tdata: List[int], stdTime: int, stdTemp: int) -> (float, int):
     size, minDistance, minPos = len(tdata), float('inf'), -1
@@ -113,6 +114,19 @@ def findCriticalPoints(data):
             point[1].append(data[i])
     return point
 
+def newfindCriticalPoints(data):
+    point = [[], []]
+    THRESHOLD = math.pi * 45 / 180
+    for i in range(1, len(data) - 1):
+        a1, a2 = math.atan(data[i] - data[i - 1]), math.atan(data[i + 1] - data[i])
+        if a1 * a2 >= 0:
+            t = abs(a1 - a2)
+        else:
+            t = abs(a1) + abs(a2)
+        if t >= THRESHOLD:
+            point[0].append(i)
+            point[1].append(data[i])
+    return point
 
 def pieceswiseLinerFitting(data, xlabels):
     '''

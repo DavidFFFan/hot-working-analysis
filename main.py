@@ -8,8 +8,8 @@ from generate import combine
 # def func(x):
 #     return (30*abs(x[3] - x[2] - time)/time+ abs(x[0]*(x[2]+x[3])/2+x[1]-temperature) + abs(x[0]))
 if __name__ == '__main__':
-    pathIn = r'data\origin\测试数据11_3-11_19.csv'
-    pathOut = r'data\label\dataset11_3-11_19.csv'
+    pathIn = r'data/origin/测试数据11_3-11_19.csv'
+    pathOut = r'data/label/dataset11_3-11_19.csv'
     # 标准工艺的时间，以及温度
     time, temperature = 30, 815
 
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     data = pp.load_csv_data(pathIn)
 
     # 寻找关键点
-    points = findCriticalPoints(data)
+    points = newfindCriticalPoints(data)
 
     # 分段线性拟合
     parameters = pieceswiseLinerFitting(data, points[0])
