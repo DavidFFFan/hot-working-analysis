@@ -116,7 +116,7 @@ def findCriticalPoints(data):
 
 def newfindCriticalPoints(data):
     point = [[], []]
-    THRESHOLD = math.pi * 45 / 180
+    THRESHOLD = math.pi * 60 / 180
     for i in range(1, len(data) - 1):
         a1, a2 = math.atan(data[i] - data[i - 1]), math.atan(data[i + 1] - data[i])
         if a1 * a2 >= 0:
